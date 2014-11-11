@@ -9,6 +9,10 @@ import hashlib
 import json
 import urlparse
 
+# Setup url parse to read DB login data as environment string
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
 app = Flask(__name__, static_url_path = "")
 
 def connect_to_db():
