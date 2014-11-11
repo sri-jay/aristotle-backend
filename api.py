@@ -76,7 +76,22 @@ def get_session():
 
 	data = cursor.fetchall()
 
-	data[0] == 1:
+	response = None
+
+	if data[0] == 1:
+
+		STATUS = "SESSION_SUCCESS"
+		SESSION_KEY = hashlib.md5(str(random.random())).hexdigest()
+
+		response = {'STATUS' : STATUS, 'SESSION_KEY' : SESSION_KEY}
+
+	else:
+		STATUS = "SESSION_FAILED"
+
+		response = {'STATUS' : STATUS}
+
+	return jsonify(response)
+
 
 
 @app.route("/insertData", methods=['GET','POST'])
