@@ -70,33 +70,38 @@ def get_session():
 	# Get app secret from device
 	app_secret = request.form['secret_key']
 
-	# Get connection object
-	connecton = connect_to_db()
-
-	# Ge ta cursor
-	cursor = connection.cursor()
-
-
-	query = """SELECT COUNT(*) FROM api_secret_keys WHERE key = \'%s\'"""%(app_secret)
-
-	cursor.excute(query)
-
-	data = cursor.fetchall()
-
 	response = None
 
-	if data[0] == 1:
+	try:
+		# Get connection object
+		connecton = connect_to_db()
 
-		STATUS = "SESSION_SUCCESS"
-		SESSION_KEY = hashlib.md5(str(random.random())).hexdigest()
+		# Ge ta cursor
+		cursor = connection.cursor()
 
-		response = {'STATUS' : STATUS, 'SESSION_KEY' : SESSION_KEY}
 
-	else:
-		STATUS = "SESSION_FAILED"
+		query = """SELECT COUNT(*) FROM api_secret_keys WHERE key = \'%s\'"""%(app_secret)
 
+		cursor.excute(query)
+
+		data = cursor.fetchall()
+
+		if data[0] == 1:
+
+			STATUS = "SESSION_SUCCESS"
+			SESSION_KEY = hashlib.md5(str(random.random())).hexdigest()
+
+			response = {'STATUS' : STATUS, 'SESSION_KEY' : SESSION_KEY}
+
+		else:
+			STATUS = "SESSION_FAILED"
+			response = {'STATUS' : STATUS}
+
+	except Exception as e;
+
+		print "DB Insert failed."
+		STATUS = "FAILED_TO_AUTH"
 		response = {'STATUS' : STATUS}
-
 	return jsonify(response)
 
 
