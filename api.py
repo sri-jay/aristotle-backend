@@ -98,6 +98,8 @@ def get_session():
 def insert_data():
 	pass
 
+if __name__ == "__main__":
+	app.run(debug=True)
 
 	
 
