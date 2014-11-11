@@ -9,6 +9,9 @@ import hashlib
 import json
 import urlparse
 
+# for urlparse
+import os
+
 # Setup url parse to read DB login data as environment string
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
@@ -74,7 +77,7 @@ def get_session():
 	cursor = connection.cursor()
 
 
-	query = """SELECT COUNT(*) FROM api_secret_keys WHERE key = \'%s\'"""(%app_secret)
+	query = """SELECT COUNT(*) FROM api_secret_keys WHERE key = \'%s\'"""%(app_secret)
 
 	cursor.excute(query)
 
