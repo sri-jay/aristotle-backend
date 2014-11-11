@@ -1,0 +1,88 @@
+from flask import Flask, render_template, request, jsonify, make_response
+
+# DB imports
+import psycopg2
+
+# Required for generating secret keys
+import random
+import hashlib
+import json
+import urlparse
+
+app = Flask(__name__, static_url_path = "")
+
+def connect_to_db():
+
+	print "Creating connection object."
+	db_connection = psycopg2.connect(
+		database=url.path[1:],
+		user=url.username,
+		password=url.password,
+		host=url.hostname,
+		port=url.port
+	)
+
+	return db_connection
+
+@app.route("/registerDevice",methods=['GET','POST'])
+def register_device():
+	device_random_code = request.form['random_hash']
+
+	response = None
+
+	STATUS = "REGISTRATION_SUCCEEDED"
+	try:
+		# Creating a random number
+		app_secret = hashlib.sha224(str(random.random())).hexdigest()
+
+		# Get databsae connection
+		connection = connect_to_db()
+
+		# Create cursor
+		cursor = connection.cursor()
+
+		# Build query
+		statement = """INSERT INTO api_secret_keys VALUES(\'%s\')"""%(app_secret)
+
+		# Execute query
+		cursor.execute(statement)
+
+		response = {'STATUS' : STATUS, 'API_SECRET' : app_secret}
+
+	except Exception as e:
+		print "DB connection falied!"
+
+		STATUS = "REGISTRATION_FALIED"
+		response = {'STATUS' : STATUS}
+
+	return jsonify(response)
+
+@app.route("/getSession", methods=['GET','POST'])
+def get_session():
+	
+	# Get app secret from device
+	app_secret = request.form['secret_key']
+
+	# Get connection object
+	connecton = connect_to_db()
+
+	# Ge ta cursor
+	cursor = connection.cursor()
+
+
+	query = """SELECT COUNT(*) FROM api_secret_keys WHERE key = \'%s\'"""(%app_secret)
+
+	cursor.excute(query)
+
+	data = cursor.fetchall()
+
+	data[0] == 1:
+
+
+@app.route("/insertData", methods=['GET','POST'])
+def insert_data():
+	pass
+
+
+	
+
