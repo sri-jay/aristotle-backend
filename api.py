@@ -101,9 +101,9 @@ def get_session():
 
 
 
-@app.route("/insertData", methods=['GET','POST'])
-def insert_data():
-	pass
+@app.route('/')
+def hello:
+	return "Hello!"
 
 if __name__ == "__main__":
 	app.run(debug=True)
