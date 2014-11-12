@@ -54,6 +54,9 @@ def register_device():
 		# Execute query
 		cursor.execute(statement)
 
+		# Commit query
+		connection.commit()
+		
 		response = {'STATUS' : STATUS, 'API_SECRET' : app_secret}
 
 		connection.close()
