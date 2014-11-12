@@ -82,7 +82,6 @@ def get_session():
 		# Ge ta cursor
 		cursor = connection.cursor()
 
-
 		query = """SELECT COUNT(*) FROM api_secret_keys WHERE key = \'%s\'"""%(app_secret)
 
 		cursor.excute(query)
