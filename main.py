@@ -123,12 +123,12 @@ def get_session():
 		response = {'STATUS' : STATUS}
 	return jsonify(response)
 
-@app.route("/getAllSession")
+@app.route("/getAllSession", methods=['GET','POST'])
 def get_keys():
 	print auth_verified_users
 	return jsonify(auth_verified_users)
 
-@app.route('/',methods=['GET','POST'])
+@app.route('/', methods=['GET','POST'])
 def hello():
 	return "Hello!"
 
