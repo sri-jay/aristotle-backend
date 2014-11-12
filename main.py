@@ -12,6 +12,12 @@ import urlparse
 # for urlparse
 import os
 
+import time,threading
+
+def foo():
+	print(time.ctime())
+	threading.Timer(10, foo).start()
+	
 # Setup url parse to read DB login data as environment string
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
@@ -106,7 +112,8 @@ def get_session():
 
 			STATUS = "SESSION_SUCCESS"
 			SESSION_KEY = hashlib.md5(str(random.random())).hexdigest()
-
+			
+			auth_verified_users[SESSION_KEY] = True
 			response = {'STATUS' : STATUS, 'SESSION_KEY' : SESSION_KEY}
 
 		else:
