@@ -17,7 +17,8 @@ import time,threading
 def foo():
 	print(time.ctime())
 	threading.Timer(10, foo).start()
-	
+
+foo()
 # Setup url parse to read DB login data as environment string
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
