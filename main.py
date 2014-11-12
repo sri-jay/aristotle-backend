@@ -18,6 +18,9 @@ url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
 app = Flask(__name__, static_url_path = "")
 
+# simple map to store authenticated users sessionKeys.
+auth_verified_users = {}
+
 def connect_to_db():
 
 	print "Creating connection object."
@@ -91,7 +94,7 @@ def get_session():
 
 		query = """SELECT key FROM api_secret_keys WHERE key = \'%s\'"""%(app_secret)
 
-		cursor.excute(query)
+		cursor.exceute(query)
 
 		data = cursor.fetchall()
 
