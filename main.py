@@ -94,6 +94,8 @@ def get_session():
 
 		query = """SELECT * FROM api_secret_keys WHERE secret_key = \'%s\'"""%(app_secret)
 
+		print query
+		
 		cursor.execute(query)
 
 		data = cursor.fetchall()
