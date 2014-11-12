@@ -115,6 +115,9 @@ def get_session():
 
 		print "DB Insert failed."
 		STATUS = "FAILED_TO_AUTH"
+
+		print e
+		
 		response = {'STATUS' : STATUS}
 	return jsonify(response)
 
