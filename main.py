@@ -102,7 +102,7 @@ def get_session():
 
 		print data
 		
-		if data[0] == 1:
+		if len(data) == 1:
 
 			STATUS = "SESSION_SUCCESS"
 			SESSION_KEY = hashlib.md5(str(random.random())).hexdigest()
