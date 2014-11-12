@@ -56,7 +56,7 @@ def register_device():
 
 		# Commit query
 		connection.commit()
-		
+
 		response = {'STATUS' : STATUS, 'API_SECRET' : app_secret}
 
 		connection.close()
@@ -75,6 +75,10 @@ def get_session():
 	
 	# Get app secret from device
 	app_secret = request.form['secret_key']
+
+	print "\n"
+	print app_secret
+	print "\n"
 
 	response = None
 
