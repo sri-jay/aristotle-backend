@@ -82,12 +82,14 @@ def get_session():
 		# Ge ta cursor
 		cursor = connection.cursor()
 
-		query = """SELECT COUNT(*) FROM api_secret_keys WHERE key = \'%s\'"""%(app_secret)
+		query = """SELECT key FROM api_secret_keys WHERE key = \'%s\'"""%(app_secret)
 
 		cursor.excute(query)
 
 		data = cursor.fetchall()
 
+		print data
+		
 		if data[0] == 1:
 
 			STATUS = "SESSION_SUCCESS"
@@ -108,7 +110,7 @@ def get_session():
 
 
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 def hello():
 	return "Hello!"
 
