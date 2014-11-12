@@ -87,7 +87,7 @@ def get_session():
 
 	try:
 		# Get connection object
-		connecton = connect_to_db()
+		connection = connect_to_db()
 
 		# Ge ta cursor
 		cursor = connection.cursor()
@@ -117,7 +117,7 @@ def get_session():
 		STATUS = "FAILED_TO_AUTH"
 
 		print e
-		
+
 		response = {'STATUS' : STATUS}
 	return jsonify(response)
 
