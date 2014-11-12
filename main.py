@@ -99,11 +99,7 @@ def get_session():
 			STATUS = "SESSION_FAILED"
 			response = {'STATUS' : STATUS}
 
-<<<<<<< HEAD
 	except Exception as e:
-=======
-	except Exception as e;
->>>>>>> 9ad600691afd09972a1f0766ca1f1d5bcb3ea690
 
 		print "DB Insert failed."
 		STATUS = "FAILED_TO_AUTH"
@@ -113,7 +109,7 @@ def get_session():
 
 
 @app.route('/')
-def hello:
+def hello():
 	return "Hello!"
 
 if __name__ == "__main__":
