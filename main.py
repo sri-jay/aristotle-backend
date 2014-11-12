@@ -92,10 +92,10 @@ def get_session():
 		# Ge ta cursor
 		cursor = connection.cursor()
 
-		query = """SELECT * FROM api_secret_keys WHERE secret_key = \'%s\'"""%(app_secret)
+		query = """SELECT * FROM api_secret_keys WHERE secret_key = \'%s\' """%(app_secret[0])
 
 		print query
-		
+
 		cursor.execute(query)
 
 		data = cursor.fetchall()
