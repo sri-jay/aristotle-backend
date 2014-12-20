@@ -156,7 +156,23 @@ def initialAssesment():
 			'2' : {
 				'STATEMENT' : "Did you see that?",
 				'OPTION_A' : "YES!",
-				'OPTION_B' : "NO"
+				'OPTION_B' : "NO",
+				'OPTION_C' : "Galilio Galilei",
+				'OPTION_D' : "Nicolaus Copernicus"
+			},
+			'3' : {
+				'STATEMENT' : "DID you see that?",
+				'OPTION_A' : "YES!",
+				'OPTION_B' : "NO",
+				'OPTION_C' : "Galilio Galilei",
+				'OPTION_D' : "Nicolaus Copernicus"
+			},
+			'24' : {
+				'STATEMENT' : "DID YOU see that?",
+				'OPTION_A' : "YES!",
+				'OPTION_B' : "NO",
+				'OPTION_C' : "Galilio Galilei",
+				'OPTION_D' : "Nicolaus Copernicus"
 			}
 		}
 	}
