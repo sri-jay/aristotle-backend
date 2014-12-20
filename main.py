@@ -167,7 +167,7 @@ def initialAssesment():
 				'OPTION_C' : "Galilio Galilei",
 				'OPTION_D' : "Nicolaus Copernicus"
 			},
-			'24' : {
+			'4' : {
 				'STATEMENT' : "DID YOU see that?",
 				'OPTION_A' : "YES!",
 				'OPTION_B' : "NO",
