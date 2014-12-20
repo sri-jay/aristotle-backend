@@ -144,7 +144,7 @@ def hello():
 @app.route('/initialAssesment', methods=['POST'])
 def initialAssesment():
 	questions  = {
-		'NUMBER_OF_QUESTIONS' : '2',
+		'NUMBER_OF_QUESTIONS' : '4',
 		'QUESTIONS' : {
 			'1' : {
 				'STATEMENT' : "Hi!, I'm uler, without the E. Who am I named after?",
