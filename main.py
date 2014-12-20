@@ -144,25 +144,24 @@ def hello():
 @app.route('/initialAssesment', methods=['POST'])
 def initialAssesment():
 	questions  = {
-		NUMBER_OF_QUESTIONS : '2',
-		QUESTIONS : {
-			1 : {
-				STATEMENT : "Hi!, I'm uler, without the E. Who am I named after?",
-				OPTION_A : "Leonhard Euler",
-				OPTION_B : "Leonardo Da Vinci",
-				OPTION_C : "Galilio Galilei",
-				OPTION_C : "Nicolaus Copernicus"
-			}
-
-			2 : {
-				STATEMENT : "Did you see that?",
-				OPTION_A : "YES!",
-				OPTION_B : "NO"
+		'NUMBER_OF_QUESTIONS' : '2',
+		'QUESTIONS' : {
+			'1' : {
+				'STATEMENT' : "Hi!, I'm uler, without the E. Who am I named after?",
+				'OPTION_A' : "Leonhard Euler",
+				'OPTION_B' : "Leonardo Da Vinci",
+				'OPTION_C' : "Galilio Galilei",
+				'OPTION_D' : "Nicolaus Copernicus"
+			},
+			'2' : {
+				'STATEMENT' : "Did you see that?",
+				'OPTION_A' : "YES!",
+				'OPTION_B' : "NO"
 			}
 		}
 	}
 
 	return jsonify(questions)
-	
+
 if __name__ == "__main__":
 	app.run(debug=True)
