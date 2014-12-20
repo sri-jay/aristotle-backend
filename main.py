@@ -12,13 +12,6 @@ import urlparse
 # for urlparse
 import os
 
-import time,threading
-
-def foo():
-	print(time.ctime())
-	threading.Timer(10, foo).start()
-
-foo()
 # Setup url parse to read DB login data as environment string
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
@@ -80,6 +73,14 @@ def register_device():
 
 	return jsonify(response)
 
+@app.route("/get_request", methods=['POST'])
+def hello_dammit():
+
+	for req in request.form:
+		print req," ",request.form[req]
+
+	return "lol"
+
 @app.route("/getSession", methods=['GET','POST'])
 def get_session():
 	
@@ -114,7 +115,7 @@ def get_session():
 			STATUS = "SESSION_SUCCESS"
 			SESSION_KEY = hashlib.md5(str(random.random())).hexdigest()
 			
-			auth_verified_users[SESSION_KEY] = True
+			query = """INSERT INTO session_keys VALUES(\'%s\',\'%s\',\'%s\',\'%s\')"""%()
 			response = {'STATUS' : STATUS, 'SESSION_KEY' : SESSION_KEY}
 
 		else:
@@ -140,8 +141,28 @@ def get_keys():
 def hello():
 	return "Hello!"
 
+@app.route('/initialAssesment', methods=['POST'])
+def initialAssesment():
+	questions  = {
+		NUMBER_OF_QUESTIONS : '2',
+		QUESTIONS : {
+			1 : {
+				STATEMENT : "Hi!, I'm uler, without the E. Who am I named after?",
+				OPTION_A : "Leonhard Euler",
+				OPTION_B : "Leonardo Da Vinci",
+				OPTION_C : "Galilio Galilei",
+				OPTION_C : "Nicolaus Copernicus"
+			}
+
+			2 : {
+				STATEMENT : "Did you see that?",
+				OPTION_A : "YES!",
+				OPTION_B : "NO"
+			}
+		}
+	}
+
+	return jsonify(questions)
+	
 if __name__ == "__main__":
 	app.run(debug=True)
-
-	
-
