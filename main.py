@@ -151,28 +151,24 @@ def initialAssesment():
 				'OPTION_A' : "Leonhard Euler",
 				'OPTION_B' : "Leonardo Da Vinci",
 				'OPTION_C' : "Galilio Galilei",
-				'OPTION_D' : "Nicolaus Copernicus"
 			},
 			'2' : {
-				'STATEMENT' : "Did you see that?",
-				'OPTION_A' : "YES!",
-				'OPTION_B' : "NO",
-				'OPTION_C' : "Galilio Galilei",
-				'OPTION_D' : "Nicolaus Copernicus"
+				'STATEMENT' : "What is the radius of the earth?",
+				'OPTION_A' : "7563.2 miles.",
+				'OPTION_B' : "7535.45 kilometers",
+				'OPTION_C' : "6450 miles",
 			},
 			'3' : {
-				'STATEMENT' : "DID you see that?",
-				'OPTION_A' : "YES!",
-				'OPTION_B' : "NO",
-				'OPTION_C' : "Galilio Galilei",
-				'OPTION_D' : "Nicolaus Copernicus"
+				'STATEMENT' : "What are kepler's laws?",
+				'OPTION_A' : "Laws that describe the motion of all planets.",
+				'OPTION_B' : "Theories of mechanics.",
+				'OPTION_C' : "Trajectory of elliptical motion of stellar objects.",
 			},
 			'4' : {
-				'STATEMENT' : "DID YOU see that?",
-				'OPTION_A' : "YES!",
-				'OPTION_B' : "NO",
-				'OPTION_C' : "Galilio Galilei",
-				'OPTION_D' : "Nicolaus Copernicus"
+				'STATEMENT' : "Which of these is a milenium prize problem?",
+				'OPTION_A' : "Fermat's Last theorem.",
+				'OPTION_B' : "Reimann's Hypothesys.",
+				'OPTION_C' : "The 'abc' problem.",
 			}
 		}
 	}
