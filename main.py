@@ -143,37 +143,29 @@ def hello():
 
 @app.route('/initialAssesment', methods=['POST'])
 def initialAssesment():
-	questions  = {
-		'NUMBER_OF_QUESTIONS' : '4',
-		'QUESTIONS' : {
-			'1' : {
-				'STATEMENT' : "Hi!, I'm uler, without the E. Who am I named after?",
-				'OPTION_A' : "Leonhard Euler",
-				'OPTION_B' : "Leonardo Da Vinci",
-				'OPTION_C' : "Galilio Galilei",
-			},
-			'2' : {
-				'STATEMENT' : "What is the radius of the earth?",
-				'OPTION_A' : "7563.2 miles.",
-				'OPTION_B' : "7535.45 kilometers",
-				'OPTION_C' : "6450 miles",
-			},
-			'3' : {
-				'STATEMENT' : "What are kepler's laws?",
-				'OPTION_A' : "Laws that describe the motion of all planets.",
-				'OPTION_B' : "Theories of mechanics.",
-				'OPTION_C' : "Trajectory of elliptical motion of stellar objects.",
-			},
-			'4' : {
-				'STATEMENT' : "Which of these is a milenium prize problem?",
-				'OPTION_A' : "Fermat's Last theorem.",
-				'OPTION_B' : "Reimann's Hypothesys.",
-				'OPTION_C' : "The 'abc' problem.",
-			}
-		}
+	data = [get_data, get_question]
+	ind = random.randint(0,20)%2
+
+	return jsonify(data[ind]())
+
+def get_data():
+	data = {
+		'TYPE' = 'DATA_UNIT',
+		'TITLE' = 'On the entropy of gases in motion.'
+		'CONTENT' = 'The motion of gases in space are governed by the prescence of strog and weak pseudpo hydrogen bonding.'
+		'ID' = hashlib.sha224(str(random.random())).hexdigest()
 	}
 
-	return jsonify(questions)
+	return data
 
+def get_question():
+	data = {
+		'TYPE' = 'DATA_QUESTION',
+		'STATEMENT' : "What are kepler's laws?",
+		'OPTION_A' : "Laws that describe the motion of all planets.",
+		'OPTION_B' : "Theories of mechanics.",
+		'OPTION_C' : "Trajectory of elliptical motion of stellar objects.",
+		'ID' = hashlib.sha224(str(random.random())).hexdigest()
+	}
 if __name__ == "__main__":
 	app.run(debug=True)
