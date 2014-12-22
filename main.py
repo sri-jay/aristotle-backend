@@ -151,8 +151,8 @@ def initialAssesment():
 def get_data():
 	data = {
 		'TYPE' : 'DATA_UNIT',
-		'TITLE' : 'On the entropy of gases in motion.'
-		'CONTENT' : 'The motion of gases in space are governed by the prescence of strog and weak pseudpo hydrogen bonding.'
+		'TITLE' : 'On the entropy of gases in motion.',
+		'CONTENT' : 'The motion of gases in space are governed by the prescence of strog and weak pseudpo hydrogen bonding.',
 		'ID' : hashlib.sha224(str(random.random())).hexdigest()
 	}
 
