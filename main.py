@@ -150,22 +150,22 @@ def initialAssesment():
 
 def get_data():
 	data = {
-		'TYPE' = 'DATA_UNIT',
-		'TITLE' = 'On the entropy of gases in motion.'
-		'CONTENT' = 'The motion of gases in space are governed by the prescence of strog and weak pseudpo hydrogen bonding.'
-		'ID' = hashlib.sha224(str(random.random())).hexdigest()
+		'TYPE' : 'DATA_UNIT',
+		'TITLE' : 'On the entropy of gases in motion.'
+		'CONTENT' : 'The motion of gases in space are governed by the prescence of strog and weak pseudpo hydrogen bonding.'
+		'ID' : hashlib.sha224(str(random.random())).hexdigest()
 	}
 
 	return data
 
 def get_question():
 	data = {
-		'TYPE' = 'DATA_QUESTION',
+		'TYPE' : 'DATA_QUESTION',
 		'STATEMENT' : "What are kepler's laws?",
 		'OPTION_A' : "Laws that describe the motion of all planets.",
 		'OPTION_B' : "Theories of mechanics.",
 		'OPTION_C' : "Trajectory of elliptical motion of stellar objects.",
-		'ID' = hashlib.sha224(str(random.random())).hexdigest()
+		'ID' : hashlib.sha224(str(random.random())).hexdigest()
 	}
 if __name__ == "__main__":
 	app.run(debug=True)
