@@ -155,7 +155,8 @@ def getAllOrganizations():
         connection = connect_to_db()
         cursor = connection.cursor()
 
-        data = cursor.execute(query).fetchall()
+        cursor.execute(query)
+        data = cursor.fetchall()
 
         print data
 
