@@ -21,18 +21,17 @@ app = Flask(__name__, static_url_path = "")
 # simple map to store authenticated users sessionKeys.
 auth_verified_users = {}
 
-def connect_to_db():
 
-	print "Creating connection object."
-	db_connection = psycopg2.connect(
+def connect_to_db():
+    print "Creating connection object."
+    db_connection = psycopg2.connect(
 		database=url.path[1:],
 		user=url.username,
 		password=url.password,
 		host=url.hostname,
 		port=url.port
 	)
-
-	return db_connection
+    return db_connection
 
 @app.route("/registerDevice",methods=['GET','POST'])
 def register_device():
@@ -147,6 +146,23 @@ def initialAssesment():
 	ind = random.randint(0,20)%2
 
 	return jsonify(data[ind]())
+
+@app.route('/getAllOrg')
+def getAllOrganizations():
+    query = "SELECT * FROM client"
+
+    try:
+        connection = connect_to_db()
+        cursor = connection.cursor()
+
+        data = cursor.execute(query).fetchall()
+
+        print data
+
+    except Exception as e:
+        print e
+
+    return jsonify(data)
 
 def get_data():
 	data = {
