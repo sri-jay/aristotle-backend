@@ -6,7 +6,6 @@ import psycopg2
 # Required for generating secret keys
 import random
 import hashlib
-import json
 import urlparse
 
 # for urlparse
@@ -33,44 +32,45 @@ def connect_to_db():
 	)
     return db_connection
 
-@app.route("/registerDevice",methods=['GET','POST'])
+
+@app.route("/registerDevice",methods=['POST'])
 def register_device():
-	device_random_code = request.form['random_hash']
+    device_code = request.form['DEVICE_ID']
+    api_code = hashlib.sha224(str(random.random())).hexdigest()
+    client_id = request.form['CLIENT_ID']
+    username = request.form['F_NAME'] + request.form['L_NAME']
 
-	response = None
+    response = None
 
-	STATUS = "REGISTRATION_SUCCEEDED"
-	try:
-		# Creating a random number
-		app_secret = hashlib.sha224(str(random.random())).hexdigest()
+    STATUS = "REGISTRATION_SUCCEEDED"
+    try:
+        # Get database connection
+        connection = connect_to_db()
 
-		# Get databsae connection
-		connection = connect_to_db()
+        # Create cursor
+        cursor = connection.cursor()
 
-		# Create cursor
-		cursor = connection.cursor()
+        # Build query
+        statement = """INSERT INTO users VALUES(\'%s\', \'%s\', \'%s\', \'%s\')"""%(client_id, device_code, username, api_code)
 
-		# Build query
-		statement = """INSERT INTO api_secret_keys VALUES(\'%s\')"""%(app_secret)
+        # Execute query
+        cursor.execute(statement)
 
-		# Execute query
-		cursor.execute(statement)
+        # Commit query
+        connection.commit()
 
-		# Commit query
-		connection.commit()
+        response = {'STATUS' : STATUS, 'API_SECRET' : api_code}
 
-		response = {'STATUS' : STATUS, 'API_SECRET' : app_secret}
-
-		connection.close()
+        connection.close()
 		
-	except Exception as e:
-		print "DB connection falied!"
-		print e
-		
-		STATUS = "REGISTRATION_FALIED"
-		response = {'STATUS' : STATUS}
+    except Exception as e:
+        print "DB connection falied!"
+        print e
 
-	return jsonify(response)
+        STATUS = "REGISTRATION_FAILED"
+        response = {'STATUS' : STATUS}
+
+    return jsonify(response)
 
 @app.route("/get_request", methods=['POST'])
 def hello_dammit():
@@ -131,17 +131,9 @@ def get_session():
 		response = {'STATUS' : STATUS}
 	return jsonify(response)
 
-@app.route("/getAllSession", methods=['GET','POST'])
-def get_keys():
-	print auth_verified_users
-	return jsonify(auth_verified_users)
 
-@app.route('/', methods=['GET','POST'])
-def hello():
-	return "Hello!"
-
-@app.route('/initialAssesment', methods=['POST'])
-def initialAssesment():
+@app.route('/initialAsessment', methods=['POST'])
+def initialAsessment():
 	data = [get_data, get_question]
 	ind = random.randint(0,20)%2
 
