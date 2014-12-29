@@ -132,8 +132,8 @@ def get_session():
 	return jsonify(response)
 
 
-@app.route('/initialAsessment', methods=['POST'])
-def initialAsessment():
+@app.route('/initialAssessment', methods=['POST'])
+def initialAssessment():
 	data = [get_data, get_question]
 	ind = random.randint(0,20)%2
 
