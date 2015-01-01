@@ -31,7 +31,8 @@ def connect_to_db():
         port=url.port
     )
     return db_connection
-
+#postgres://dotxqbwnooglgx:ZpTQaeYPJL1vKV4O5Hk_N12Bbw@ec2-50-17-207-54.compute-1.amazonaws.com:5432/d8i7sv70skpcpq
+#postgres://fkdqvwsrhrdrxd:Wsj38eQPM22hDOgP9fIa-pTBj9@ec2-54-204-39-187.compute-1.amazonaws.com:5432/de03k2op16acg
 
 @app.route("/registerDevice",methods=['POST'])
 def register_device():
@@ -143,13 +144,86 @@ def get_session():
 
     return jsonify(response)
 
+@app.route("/getNextItemInPath", methods=['POST'])
+def update_learning_path():
+    device_id = request.form["DEVICE_ID"]
 
-@app.route('/initialAssessment', methods=['POST'])
-def initialAssessment():
-	data = [get_data, get_question]
-	ind = random.randint(0,20)%2
+    try:
+        connection = connect_to_db()
+        cursor = connection.cursor()
 
-	return jsonify(data[ind]())
+        # query to get the user id
+        query_get_uid = "SELECT userid from users WHERE device_key = \'%s\'"%(device_id)
+
+        # Execute query
+        cursor.execute(query_get_uid)
+
+        # get user_id
+        user_id = cursor.fetchall()
+        user_id = user_id[0][0]
+
+
+        # now we get the next action to be taken
+        query_get_next_action = "SELECT sequence FROM user_action WHERE userid=\'%s\'"%(user_id)
+
+        # execute query
+        cursor.execute(query_get_next_action)
+
+        # get the next action
+        action = cursor.fetchall()[0]
+
+        if len(action) == 0:
+            query_get_first_action = """SELECT sequence, questionid, unitid FROM learning_path WHERE previoussequence = \'NULL\' AND userid = \'%s\'"""%(user_id)
+
+            # execute query to get next action
+            cursor.execute(query_get_next_action)
+
+            #get the next action
+            action = cursor.fetchall()[0]
+
+        # get the data
+        action, question_id, unit_id = action
+
+        data = {
+            "TYPE" : "NONE"
+        }
+        if question_id != "NULL":
+            query_get_question= "SELECT questionname, questiontext, option1Text, option2Text, option3Text FROM question WHERE questionid = \'%s\'"%(question_id)
+
+            cursor.execute(query_get_question)
+
+            name, statement, option_a, option_b, option_c = cursor.fetchall()[0]
+
+            data = {
+                'TYPE' : 'KNOWLEDGE_TYPE_QUESTION',
+                'STATEMENT' : statement,
+                'OPTION_A'  : option_a,
+                'OPTION_B'  : option_b,
+                'OPTION_C'  : option_c,
+                'ID' : hashlib.sha224(str(random.random())).hexdigest(),
+                'PATH_PROGRESS' : str(random.randint(30,99))
+            }
+
+        if unit_id != "NULL":
+            query_get_unit = "SELECT * FROM unit WHERE unitid=\'%s\'"(unit_id)
+
+            cursor.execute(query_get_unit)
+
+            name, text = cursor.fetchall()[0]
+
+            data = {
+                'TYPE' : 'KNOWLEDGE_TYPE_UNIT',
+                'TITLE' : name,
+                'CONTENT' : text,
+                'ID' : hashlib.sha224(str(random.random())).hexdigest(),
+                'PATH_PROGRESS' : str(random.randint(30,99))
+            }
+
+        # now we update the user_action with current user's data
+    except Exception as e:
+        print e
+
+    return jsonify(data)
 
 @app.route('/getAllOrg')
 def getAllOrganizations():
@@ -169,29 +243,6 @@ def getAllOrganizations():
         print e
 
     return jsonify(data)
-
-def get_data():
-	data = {
-		'TYPE' : 'KNOWLEDGE_TYPE_UNIT',
-		'TITLE' : 'On the entropy of gases in motion.',
-		'CONTENT' : 'The motion of gases in space are governed by the prescence of strog and weak pseudpo hydrogen bonding.commonly understood as a measure of disorder. According to the second law of thermodynamics the entropy of an isolated system never decreases; such a system will spontaneously evolve toward thermodynamic equilibrium, the configuration with maximum entropy. Systems that are not isolated may decrease in entropy, provided they increase the entropy of their environment by at least that same amount. Since entropy is a state function, the change in the entropy of a system is the same for any process that goes from a given initial state to a given final state, whether the process is reversible or irreversible. However, irreversible processes increase the combined entropy of the system and its environment.The motion of gases in space are governed by the prescence of strog and weak pseudpo hydrogen bonding.commonly understood as a measure of disorder. According to the second law of thermodynamics the entropy of an isolated system never decreases; such a system will spontaneously evolve toward thermodynamic equilibrium, the configuration with maximum entropy. Systems that are not isolated may decrease in entropy, provided they increase the entropy of their environment by at least that same amount. Since entropy is a state function, the change in the entropy of a system is the same for any process that goes from a given initial state to a given final state, whether the process is reversible or irreversible. However, irreversible processes increase the combined entropy of the system and its environment.',
-		'ID' : hashlib.sha224(str(random.random())).hexdigest(),
-		'PATH_PROGRESS' : str(random.randint(30,99))
-	}
-
-	return data
-
-def get_question():
-	data = {
-		'TYPE' : 'KNOWLEDGE_TYPE_QUESTION',
-		'STATEMENT' : "What are kepler's laws?",
-		'OPTION_A' : "Laws that describe the motion of all planets.",
-		'OPTION_B' : "Theories of mechanics.",
-		'OPTION_C' : "Trajectory of elliptical motion of stellar objects.",
-		'ID' : hashlib.sha224(str(random.random())).hexdigest(),
-		'PATH_PROGRESS' : str(random.randint(30,99))
-	}
-	return data
 
 if __name__ == "__main__":
 	app.run(debug=True)

@@ -26,9 +26,12 @@
       <file leaf-file-name="main.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2969697" vertical-offset="742" max-vertical-offset="2842">
-              <caret line="67" column="22" selection-start-line="67" selection-start-column="22" selection-end-line="67" selection-end-column="22" />
-              <folding />
+            <state vertical-scroll-proportion="0.16491228" vertical-offset="1222" max-vertical-offset="2828">
+              <caret line="146" column="47" selection-start-line="146" selection-start-column="47" selection-end-line="146" selection-end-column="47" />
+              <folding>
+                <element signature="e#1070#2476#0" expanded="false" />
+                <element signature="e#2545#2618#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,8 +51,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1366" />
-    <option name="height" value="768" />
+    <option name="width" value="843" />
+    <option name="height" value="738" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -254,7 +257,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="768" extended-state="6" />
+    <frame x="0" y="0" width="843" height="738" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -300,7 +303,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="898" max-vertical-offset="2660">
           <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
-          <folding />
+          <folding>
+            <element signature="e#1070#2476#0" expanded="false" />
+            <element signature="e#2545#2618#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -308,7 +314,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1834" max-vertical-offset="2660">
           <caret line="131" column="22" selection-start-line="131" selection-start-column="22" selection-end-line="131" selection-end-column="22" />
-          <folding />
+          <folding>
+            <element signature="e#1070#2476#0" expanded="false" />
+            <element signature="e#2545#2618#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -316,7 +325,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1738" max-vertical-offset="2660">
           <caret line="131" column="22" selection-start-line="131" selection-start-column="22" selection-end-line="131" selection-end-column="22" />
-          <folding />
+          <folding>
+            <element signature="e#1070#2476#0" expanded="false" />
+            <element signature="e#2545#2618#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -324,7 +336,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="2660">
           <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
-          <folding />
+          <folding>
+            <element signature="e#1070#2476#0" expanded="false" />
+            <element signature="e#2545#2618#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -332,15 +347,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3077">
           <caret line="174" column="23" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
-          <folding />
+          <folding>
+            <element signature="e#1070#2476#0" expanded="false" />
+            <element signature="e#2545#2618#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2969697" vertical-offset="742" max-vertical-offset="2842">
-          <caret line="67" column="22" selection-start-line="67" selection-start-column="22" selection-end-line="67" selection-end-column="22" />
-          <folding />
+        <state vertical-scroll-proportion="0.16491228" vertical-offset="1222" max-vertical-offset="2828">
+          <caret line="146" column="47" selection-start-line="146" selection-start-column="47" selection-end-line="146" selection-end-column="47" />
+          <folding>
+            <element signature="e#1070#2476#0" expanded="false" />
+            <element signature="e#2545#2618#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
