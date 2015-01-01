@@ -153,7 +153,7 @@ def update_learning_path():
         cursor = connection.cursor()
 
         # query to get the user id
-        query_get_uid = "SELECT userid from users WHERE device_key = \'%s\'"%(device_id)
+        query_get_uid = """SELECT userid from users WHERE device_key = \'%s\'"""%(device_id)
 
         # Execute query
         cursor.execute(query_get_uid)
@@ -165,7 +165,7 @@ def update_learning_path():
 
 
         # now we get the next action to be taken
-        query_get_next_action = "SELECT sequence FROM user_action WHERE userid=\'%s\'"%(user_id)
+        query_get_next_action = """SELECT sequence FROM user_action WHERE userid=\'%s\'"""%(user_id)
 
         # execute query
         cursor.execute(query_get_next_action)
@@ -189,7 +189,7 @@ def update_learning_path():
             "TYPE" : "NONE"
         }
         if question_id != "NULL":
-            query_get_question= "SELECT questionname, questiontext, option1Text, option2Text, option3Text FROM question WHERE questionid = \'%s\'"%(question_id)
+            query_get_question= """SELECT questionname, questiontext, option1Text, option2Text, option3Text FROM question WHERE questionid = \'%s\'"""%(question_id)
 
             cursor.execute(query_get_question)
 
@@ -206,7 +206,7 @@ def update_learning_path():
             }
 
         if unit_id != "NULL":
-            query_get_unit = "SELECT * FROM unit WHERE unitid=\'%s\'"(unit_id)
+            query_get_unit = """SELECT * FROM unit WHERE unitid=\'%s\'"""(unit_id)
 
             cursor.execute(query_get_unit)
 
