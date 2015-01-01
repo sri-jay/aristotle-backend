@@ -160,6 +160,7 @@ def update_learning_path():
 
         # get user_id
         user_id = cursor.fetchall()
+        print user_id
         user_id = user_id[0][0]
 
 
