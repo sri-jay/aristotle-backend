@@ -24,12 +24,12 @@ auth_verified_users = {}
 def connect_to_db():
     print "Creating connection object."
     db_connection = psycopg2.connect(
-		database=url.path[1:],
-		user=url.username,
-		password=url.password,
-		host=url.hostname,
-		port=url.port
-	)
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
     return db_connection
 
 
@@ -39,6 +39,8 @@ def register_device():
     api_code = hashlib.sha224(str(random.random())).hexdigest()
     client_id = request.form['CLIENT_ID']
     username = request.form['F_NAME'] + request.form['L_NAME']
+    phone_number = request.form['PHONE_NUMBER']
+
 
     response = None
 
@@ -51,20 +53,28 @@ def register_device():
         cursor = connection.cursor()
 
         # Build query
-        statement = """INSERT INTO users VALUES(\'%s\', \'%s\', \'%s\', \'%s\')"""%(client_id, device_code, username, api_code)
+        get_id_query = """SELECT userid FROM user_reg WHERE userphonenumber =\'%s\' AND clientid = \'%s\'"""%(phone_number, client_id)
 
-        # Execute query
-        cursor.execute(statement)
+        # Execute query, get the userid from the reg table
+        cursor.execute(get_id_query)
+
+        user_id = cursor.fetchall()[0]
+
+        # Now register the user
+        register_query = """INSERT INTO users VALUES(\'%s\', \'%s\', \'%s\', \'%s\, \'%s\'')"""%(client_id, user_id, username, api_code, device_code)
+        cursor.execute(register_query)
 
         # Commit query
         connection.commit()
 
         response = {'STATUS' : STATUS, 'API_SECRET' : api_code}
 
+        # Close the connection and cursor
+        cursor.close()
         connection.close()
-		
+
     except Exception as e:
-        print "DB connection falied!"
+        print "DB connection failed!"
         print e
 
         STATUS = "REGISTRATION_FAILED"
@@ -82,54 +92,55 @@ def hello_dammit():
 
 @app.route("/getSession", methods=['GET','POST'])
 def get_session():
-	
-	# Get app secret from device
-	app_secret = request.form['secret_key']
 
-	print "\n"
-	print app_secret
-	print "\n"
+    # Get app secret from device
+    app_secret = request.form['secret_key']
 
-	response = None
+    print "\n"
+    print app_secret
+    print "\n"
 
-	try:
-		# Get connection object
-		connection = connect_to_db()
-        
-		# Ge ta cursor
-		cursor = connection.cursor()
+    response = None
 
-		query = """SELECT * FROM api_secret_keys WHERE secret_key = \'%s\' ;"""%(app_secret)
+    try:
+        # Get connection object
+        connection = connect_to_db()
 
-		print query
+        # Ge ta cursor
+        cursor = connection.cursor()
 
-		cursor.execute(query)
+        query = """SELECT * FROM api_secret_keys WHERE secret_key = \'%s\' ;"""%(app_secret)
 
-		data = cursor.fetchall()
+        print query
 
-		print data
-		
-		if len(data) == 1:
+        cursor.execute(query)
 
-			STATUS = "SESSION_SUCCESS"
-			SESSION_KEY = hashlib.md5(str(random.random())).hexdigest()
-			
-			query = """INSERT INTO session_keys VALUES(\'%s\',\'%s\',\'%s\',\'%s\')"""%()
-			response = {'STATUS' : STATUS, 'SESSION_KEY' : SESSION_KEY}
+        data = cursor.fetchall()
 
-		else:
-			STATUS = "SESSION_FAILED"
-			response = {'STATUS' : STATUS}
 
-	except Exception as e:
+        cursor.close()
+        connection.close()
 
-		print "DB Insert failed."
-		STATUS = "FAILED_TO_AUTH"
+        if len(data) == 1:
 
-		print e
+            STATUS = "SESSION_SUCCESS"
+            SESSION_KEY = hashlib.md5(str(random.random())).hexdigest()
+            response = {'STATUS' : STATUS, 'SESSION_KEY' : SESSION_KEY}
 
-		response = {'STATUS' : STATUS}
-	return jsonify(response)
+        else:
+            STATUS = "SESSION_FAILED"
+            response = {'STATUS' : STATUS}
+
+    except Exception as e:
+
+        print "DB Insert failed."
+        STATUS = "FAILED_TO_AUTH"
+
+        print e
+
+        response = {'STATUS' : STATUS}
+
+    return jsonify(response)
 
 
 @app.route('/initialAssessment', methods=['POST'])
@@ -150,7 +161,8 @@ def getAllOrganizations():
         cursor.execute(query)
         data = cursor.fetchall()
 
-        print data
+        cursor.close()
+        connection.close()
 
     except Exception as e:
         print e
