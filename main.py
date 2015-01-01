@@ -59,9 +59,7 @@ def register_device():
         cursor.execute(get_id_query)
 
         user_id = cursor.fetchall()
-
-        print user_id
-        print user_id[0][0]
+        user_id = user_id[0][0]
 
         # Now register the user
         register_query = """INSERT INTO users VALUES(\'%s\', \'%s\', \'%s\', \'%s\, \'%s\'')"""%(client_id, user_id, username, api_code, device_code)
