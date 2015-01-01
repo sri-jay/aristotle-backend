@@ -95,7 +95,7 @@ def get_session():
 	try:
 		# Get connection object
 		connection = connect_to_db()
-
+        
 		# Ge ta cursor
 		cursor = connection.cursor()
 
