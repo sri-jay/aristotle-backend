@@ -62,7 +62,7 @@ def register_device():
         user_id = user_id[0][0]
 
         # Now register the user
-        register_query = """INSERT INTO users VALUES(\'%s\', \'%s\', \'%s\', \'%s\, \'%s\'')"""%(client_id, user_id, username, api_code, device_code)
+        register_query = """INSERT INTO users VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"""%(client_id, user_id, username, api_code, device_code)
         cursor.execute(register_query)
 
         # Commit query
