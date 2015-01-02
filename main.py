@@ -141,6 +141,9 @@ def get_next_item_in_path():
     data = {
         "TYPE" : "NONE"
     }
+
+    print data
+
     try:
         connection = connect_to_db()
         cursor = connection.cursor()
@@ -220,6 +223,7 @@ def get_next_item_in_path():
 
 @app.route("/recordResponse", methods=['POST'])
 def record_response():
+    print "recordResp"
     response_for = request.form['RESPONSE_FOR']
     device_id = request.form['DEVICE_ID']
     course_id = request.fom['COURSE_ID']

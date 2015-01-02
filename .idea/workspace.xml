@@ -26,12 +26,12 @@
       <file leaf-file-name="main.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8101523" vertical-offset="798" max-vertical-offset="2450">
-              <caret line="210" column="24" selection-start-line="210" selection-start-column="24" selection-end-line="210" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.8272727" vertical-offset="1260" max-vertical-offset="2506">
+              <caret line="225" column="21" selection-start-line="225" selection-start-column="21" selection-end-line="225" selection-end-column="21" />
               <folding>
                 <element signature="e#840#2246#0" expanded="false" />
                 <element signature="e#2322#3331#0" expanded="false" />
-                <element signature="e#7537#7836#0" expanded="false" />
+                <element signature="e#7577#7876#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -274,7 +274,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32234958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32146388" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.170706" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -319,7 +319,7 @@
           <folding>
             <element signature="e#840#2246#0" expanded="false" />
             <element signature="e#2322#3331#0" expanded="false" />
-            <element signature="e#7537#7836#0" expanded="false" />
+            <element signature="e#7577#7876#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -331,7 +331,7 @@
           <folding>
             <element signature="e#840#2246#0" expanded="false" />
             <element signature="e#2322#3331#0" expanded="false" />
-            <element signature="e#7537#7836#0" expanded="false" />
+            <element signature="e#7577#7876#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -343,7 +343,7 @@
           <folding>
             <element signature="e#840#2246#0" expanded="false" />
             <element signature="e#2322#3331#0" expanded="false" />
-            <element signature="e#7537#7836#0" expanded="false" />
+            <element signature="e#7577#7876#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -355,7 +355,7 @@
           <folding>
             <element signature="e#840#2246#0" expanded="false" />
             <element signature="e#2322#3331#0" expanded="false" />
-            <element signature="e#7537#7836#0" expanded="false" />
+            <element signature="e#7577#7876#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -367,7 +367,7 @@
           <folding>
             <element signature="e#840#2246#0" expanded="false" />
             <element signature="e#2322#3331#0" expanded="false" />
-            <element signature="e#7537#7836#0" expanded="false" />
+            <element signature="e#7577#7876#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -379,19 +379,19 @@
           <folding>
             <element signature="e#840#2246#0" expanded="false" />
             <element signature="e#2322#3331#0" expanded="false" />
-            <element signature="e#7537#7836#0" expanded="false" />
+            <element signature="e#7577#7876#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8101523" vertical-offset="798" max-vertical-offset="2450">
-          <caret line="210" column="24" selection-start-line="210" selection-start-column="24" selection-end-line="210" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.8272727" vertical-offset="1260" max-vertical-offset="2506">
+          <caret line="225" column="21" selection-start-line="225" selection-start-column="21" selection-end-line="225" selection-end-column="21" />
           <folding>
             <element signature="e#840#2246#0" expanded="false" />
             <element signature="e#2322#3331#0" expanded="false" />
-            <element signature="e#7537#7836#0" expanded="false" />
+            <element signature="e#7577#7876#0" expanded="false" />
           </folding>
         </state>
       </provider>
