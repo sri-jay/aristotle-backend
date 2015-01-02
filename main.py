@@ -176,8 +176,28 @@ def get_next_item_in_path():
             #get the next action
             sequence = cursor.fetchall()[0]
 
-        # get the data
-        sequence, question_id, unit_id = sequence
+            # get the data
+            sequence, question_id, unit_id = sequence
+
+        else:
+            query_get_sequence_action = """SELECT nextsequence FROM learning_path WHERE sequence = \'%s\' AND userid = \'%s\'"""%(sequence[0][0], user_id)
+
+            # execute query to get next action
+            cursor.execute(query_get_sequence_action)
+
+            #get the next action
+            nextsequence = cursor.fetchall()[0][0]
+
+            query_get_next_action =  """SELECT sequence, questionid, unitid FROM learning_path WHERE sequence = \'%s\' AND userid = \'%s\'"""%(nextsequence, user_id)
+
+            #execute fetch
+            cursor.execute(query_get_next_action)
+
+            # get the data
+            sequence = cursor.fetchall()[0]
+
+            sequence, question_id, unit_id = sequence
+
         print sequence, question_id, unit_id
         if question_id != "NULL":
             query_get_question= """SELECT questionname, questiontext, option1Text, option2Text, option3Text FROM question WHERE questionid = \'%s\'"""%(question_id)
