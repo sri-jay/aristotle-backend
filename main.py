@@ -226,6 +226,8 @@ def record_response():
     response = request.form['RESPONSE']
     current_seq = request.form['SEQUENCE']
 
+    print response_for, device_id, course_id, response, current_seq
+    
     try:
         connection = connect_to_db()
         cursor = connection.cursor()
