@@ -239,11 +239,11 @@ def record_response():
         # get user_id
         user_id, client_id = cursor.fetchall()[0]
 
-        if response_for == 'RESPONSE_TYPE_UNIT':
+        if response_for == "RESPONSE_TYPE_UNIT":
             query_update_user_action =\
                 """INSERT INTO user_action VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"""\
                 %(client_id, user_id, course_id, current_seq, response, "NULL")
-        if response_for == 'RESPONSE_TYPE_QUESTION':
+        if response_for == "RESPONSE_TYPE_QUESTION":
             query_update_user_action =\
                 """INSERT INTO user_action VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"""\
                 %(client_id, user_id, course_id, current_seq, "NULL", response)
