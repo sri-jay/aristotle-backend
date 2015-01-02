@@ -142,7 +142,6 @@ def get_next_item_in_path():
         "TYPE" : "NONE"
     }
 
-    print data
 
     try:
         connection = connect_to_db()
@@ -223,14 +222,11 @@ def get_next_item_in_path():
 
 @app.route("/recordResponse", methods=['POST'])
 def record_response():
-    print "recordResp"
     response_for = request.form['RESPONSE_FOR']
     device_id = request.form['DEVICE_ID']
     course_id = request.fom['COURSE_ID']
     response = request.form['RESPONSE']
     current_seq = request.form['SEQUENCE']
-
-    print response_for, device_id, course_id, response, current_seq, "FUCK"
 
     try:
         connection = connect_to_db()
@@ -238,7 +234,7 @@ def record_response():
 
         # query to get the user id
         query_get_uid = """SELECT userid, clientid FROM users WHERE device_key = \'%s\'"""%(device_id)
-
+        print query_get_uid
         # Execute query
         cursor.execute(query_get_uid)
 
