@@ -178,7 +178,7 @@ def get_next_item_in_path():
 
         # get the data
         sequence, question_id, unit_id = sequence
-
+        print sequence, question_id, unit_id
         if question_id != "NULL":
             query_get_question= """SELECT questionname, questiontext, option1Text, option2Text, option3Text FROM question WHERE questionid = \'%s\'"""%(question_id)
 
