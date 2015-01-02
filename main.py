@@ -187,6 +187,8 @@ def get_next_item_in_path():
             dat = cursor.fetchall()[0]
             name, statement, option_a, option_b, option_c = dat
 
+            print dat
+
             data = {
                 'TYPE' : 'KNOWLEDGE_TYPE_QUESTION',
                 'STATEMENT' : statement,
@@ -205,6 +207,7 @@ def get_next_item_in_path():
 
             name, text = cursor.fetchall()[0]
 
+            print name, text
             data = {
                 'TYPE' : 'KNOWLEDGE_TYPE_UNIT',
                 'SEQUENCE' : sequence,
