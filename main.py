@@ -159,7 +159,7 @@ def get_next_item_in_path():
 
 
         # now we get the next action to be taken
-        query_get_next_action = """SELECT sequence FROM user_action WHERE userid=\'%s\'"""%(user_id)
+        query_get_next_action = """SELECT sequence FROM user_action WHERE userid=\'%s\' order by action_seq desc limit 1"""%(user_id)
 
         # execute query
         cursor.execute(query_get_next_action)
