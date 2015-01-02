@@ -222,11 +222,11 @@ def get_next_item_in_path():
 
 @app.route("/recordResponse", methods=['POST'])
 def record_response():
-    response_for = request.form['RESPONSE_FOR']
-    device_id = request.form['DEVICE_ID']
-    course_id = request.fom['COURSE_ID']
-    response = request.form['RESPONSE']
-    current_seq = request.form['SEQUENCE']
+    response_for = request.form["RESPONSE_FOR"]
+    device_id = request.form["DEVICE_ID"]
+    course_id = request.form["COURSE_ID"]
+    response = request.form["RESPONSE"]
+    current_seq = request.form["SEQUENCE"]
 
     try:
         connection = connect_to_db()
@@ -234,18 +234,17 @@ def record_response():
 
         # query to get the user id
         query_get_uid = """SELECT userid, clientid FROM users WHERE device_key = \'%s\'"""%(device_id)
-        print query_get_uid
         # Execute query
         cursor.execute(query_get_uid)
 
         # get user_id
         user_id, client_id = cursor.fetchall()[0]
 
-        if response_for == "RESPONSE_TYPE_UNIT":
+        if response_for == "KNOWLEDGE_TYPE_UNIT":
             query_update_user_action =\
                 """INSERT INTO user_action VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"""\
                 %(client_id, user_id, course_id, current_seq, response, "NULL")
-        if response_for == "RESPONSE_TYPE_QUESTION":
+        if response_for == "KNOWLEDGE_TYPE_QUESTION":
             query_update_user_action =\
                 """INSERT INTO user_action VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"""\
                 %(client_id, user_id, course_id, current_seq, "NULL", response)
@@ -258,6 +257,7 @@ def record_response():
     except Exception as e:
         print e
 
+    return "lol"
 @app.route('/getAllOrg')
 def getAllOrganizations():
     query = "SELECT * FROM client"
