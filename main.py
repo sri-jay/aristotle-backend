@@ -31,8 +31,6 @@ def connect_to_db():
         port=url.port
     )
     return db_connection
-#postgres://dotxqbwnooglgx:ZpTQaeYPJL1vKV4O5Hk_N12Bbw@ec2-50-17-207-54.compute-1.amazonaws.com:5432/d8i7sv70skpcpq
-#postgres://fkdqvwsrhrdrxd:Wsj38eQPM22hDOgP9fIa-pTBj9@ec2-54-204-39-187.compute-1.amazonaws.com:5432/de03k2op16acg
 
 @app.route("/registerDevice",methods=['POST'])
 def register_device():
@@ -83,14 +81,6 @@ def register_device():
         response = {'STATUS' : STATUS}
 
     return jsonify(response)
-
-@app.route("/get_request", methods=['POST'])
-def hello_dammit():
-
-	for req in request.form:
-		print req," ",request.form[req]
-
-	return "lol"
 
 @app.route("/getSession", methods=['GET','POST'])
 def get_session():
@@ -145,22 +135,24 @@ def get_session():
     return jsonify(response)
 
 @app.route("/getNextItemInPath", methods=['POST'])
-def update_learning_path():
+def get_next_item_in_path():
     device_id = request.form["DEVICE_ID"]
 
+    data = {
+        "TYPE" : "NONE"
+    }
     try:
         connection = connect_to_db()
         cursor = connection.cursor()
 
         # query to get the user id
-        query_get_uid = """SELECT userid from users WHERE device_key = \'%s\'"""%(device_id)
+        query_get_uid = """SELECT userid FROM users WHERE device_key = \'%s\'"""%(device_id)
 
         # Execute query
         cursor.execute(query_get_uid)
 
         # get user_id
         user_id = cursor.fetchall()
-        print user_id
         user_id = user_id[0][0]
 
 
@@ -171,33 +163,32 @@ def update_learning_path():
         cursor.execute(query_get_next_action)
 
         # get the next action
-        action = cursor.fetchall()[0]
+        sequence = cursor.fetchall()
 
-        if len(action) == 0:
+        if len(sequence) == 0:
             query_get_first_action = """SELECT sequence, questionid, unitid FROM learning_path WHERE previoussequence = \'NULL\' AND userid = \'%s\'"""%(user_id)
 
             # execute query to get next action
-            cursor.execute(query_get_next_action)
+            cursor.execute(query_get_first_action)
 
             #get the next action
-            action = cursor.fetchall()[0]
+            sequence = cursor.fetchall()[0]
 
         # get the data
-        action, question_id, unit_id = action
+        sequence, question_id, unit_id = sequence
 
-        data = {
-            "TYPE" : "NONE"
-        }
         if question_id != "NULL":
             query_get_question= """SELECT questionname, questiontext, option1Text, option2Text, option3Text FROM question WHERE questionid = \'%s\'"""%(question_id)
 
             cursor.execute(query_get_question)
 
-            name, statement, option_a, option_b, option_c = cursor.fetchall()[0]
+            dat = cursor.fetchall()[0]
+            name, statement, option_a, option_b, option_c = dat
 
             data = {
                 'TYPE' : 'KNOWLEDGE_TYPE_QUESTION',
                 'STATEMENT' : statement,
+                'SEQUENCE'  : sequence,
                 'OPTION_A'  : option_a,
                 'OPTION_B'  : option_b,
                 'OPTION_C'  : option_c,
@@ -214,6 +205,7 @@ def update_learning_path():
 
             data = {
                 'TYPE' : 'KNOWLEDGE_TYPE_UNIT',
+                'SEQUENCE' : sequence,
                 'TITLE' : name,
                 'CONTENT' : text,
                 'ID' : hashlib.sha224(str(random.random())).hexdigest(),
@@ -225,6 +217,44 @@ def update_learning_path():
         print e
 
     return jsonify(data)
+
+@app.route("/recordResponse", methods=['POST'])
+def record_response():
+    response_for = request.form['RESPONSE_FOR']
+    device_id = request.form['DEVICE_ID']
+    course_id = request.fom['COURSE_ID']
+    response = request.form['RESPONSE']
+    current_seq = request.form['SEQUENCE']
+
+    try:
+        connection = connect_to_db()
+        cursor = connection.cursor()
+
+        # query to get the user id
+        query_get_uid = """SELECT userid, clientid FROM users WHERE device_key = \'%s\'"""%(device_id)
+
+        # Execute query
+        cursor.execute(query_get_uid)
+
+        # get user_id
+        user_id, client_id = cursor.fetchall()[0]
+
+        if response_for == 'RESPONSE_TYPE_UNIT':
+            query_update_user_action =\
+                """INSERT INTO user_action VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"""\
+                %(client_id, user_id, course_id, current_seq, response, "NULL")
+        if response_for == 'RESPONSE_TYPE_QUESTION':
+            query_update_user_action =\
+                """INSERT INTO user_action VALUES(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')"""\
+                %(client_id, user_id, course_id, current_seq, "NULL", response)
+
+        cursor.execute(query_update_user_action)
+        connection.commit()
+
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print e
 
 @app.route('/getAllOrg')
 def getAllOrganizations():
