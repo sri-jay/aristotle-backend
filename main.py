@@ -199,7 +199,7 @@ def get_next_item_in_path():
             sequence, question_id, unit_id = sequence
 
         print sequence, question_id, unit_id
-        if question_id != 'NULL':
+        if question_id != "NULL":
             query_get_question= """SELECT questionname, questiontext, option1Text, option2Text, option3Text, questionmultimedia FROM question WHERE questionid = \'%s\'"""%(question_id)
 
             cursor.execute(query_get_question)
@@ -221,7 +221,7 @@ def get_next_item_in_path():
                 'IMAGE_URL' : image_url
             }
 
-        if unit_id != 'NULL':
+        if unit_id != "NULL":
             query_get_unit = """SELECT unitname, unittext FROM unit WHERE unitid=\'%s\'"""%(unit_id)
 
             cursor.execute(query_get_unit)
