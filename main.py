@@ -222,11 +222,11 @@ def get_next_item_in_path():
             }
 
         if unit_id != "NULL":
-            query_get_unit = """SELECT unitname, unittext FROM unit WHERE unitid=\'%s\'"""%(unit_id)
+            query_get_unit = """SELECT unitname, unittext, unitmultimedia FROM unit WHERE unitid=\'%s\'"""%(unit_id)
 
             cursor.execute(query_get_unit)
 
-            name, text = cursor.fetchall()[0]
+            name, text, image_url = cursor.fetchall()[0]
 
             print name, text
             data = {
@@ -235,7 +235,8 @@ def get_next_item_in_path():
                 'TITLE' : name,
                 'CONTENT' : text,
                 'ID' : hashlib.sha224(str(random.random())).hexdigest(),
-                'PATH_PROGRESS' : str(random.randint(30,99))
+                'PATH_PROGRESS' : str(random.randint(30,99)),
+                'IMAGE_URL' : image_url
             }
 
         # now we update the user_action with current user's data
