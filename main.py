@@ -200,12 +200,12 @@ def get_next_item_in_path():
 
         print sequence, question_id, unit_id
         if question_id != "NULL":
-            query_get_question= """SELECT questionname, questiontext, option1Text, option2Text, option3Text FROM question WHERE questionid = \'%s\'"""%(question_id)
+            query_get_question= """SELECT questionname, questiontext, option1Text, option2Text, option3Text, questionmultimedia FROM question WHERE questionid = \'%s\'"""%(question_id)
 
             cursor.execute(query_get_question)
 
             dat = cursor.fetchall()[0]
-            name, statement, option_a, option_b, option_c = dat
+            name, statement, option_a, option_b, option_c, image_url = dat
 
             print dat
 
@@ -217,7 +217,8 @@ def get_next_item_in_path():
                 'OPTION_B'  : option_b,
                 'OPTION_C'  : option_c,
                 'ID' : hashlib.sha224(str(random.random())).hexdigest(),
-                'PATH_PROGRESS' : str(random.randint(30,99))
+                'PATH_PROGRESS' : str(random.randint(30,99)),
+                'IMAGE_URL' : image_url
             }
 
         if unit_id != "NULL":
