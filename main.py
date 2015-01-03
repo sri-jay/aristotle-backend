@@ -221,7 +221,7 @@ def get_next_item_in_path():
                 'IMAGE_URL' : image_url
             }
 
-        if unit_id != "NULL":
+        else:
             query_get_unit = """SELECT unitname, text FROM unit WHERE unitid=\'%s\'"""(unit_id)
 
             cursor.execute(query_get_unit)
