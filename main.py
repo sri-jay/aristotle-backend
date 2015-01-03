@@ -222,7 +222,7 @@ def get_next_item_in_path():
             }
 
         if unit_id != 'NULL':
-            query_get_unit = """SELECT unitname, text FROM unit WHERE unitid=\'%s\'"""%(unit_id)
+            query_get_unit = """SELECT unitname, unittext FROM unit WHERE unitid=\'%s\'"""%(unit_id)
 
             cursor.execute(query_get_unit)
 
