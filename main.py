@@ -137,6 +137,7 @@ def get_session():
 @app.route("/getNextItemInPath", methods=['POST'])
 def get_next_item_in_path():
     device_id = request.form["DEVICE_ID"]
+    course_id = request.form["COURSE_ID"]
 
     data = {
         "TYPE" : "NONE"
@@ -159,7 +160,7 @@ def get_next_item_in_path():
 
 
         # now we get the next action to be taken
-        query_get_next_action = """SELECT sequence FROM user_action WHERE userid=\'%s\' order by action_seq desc limit 1"""%(user_id)
+        query_get_next_action = """SELECT sequence FROM user_action WHERE userid=\'%s\' AND courseid = \'%s\' ORDER BY action_seq DESC LIMIT 1"""%(user_id, course_id)
 
         # execute query
         cursor.execute(query_get_next_action)
@@ -168,7 +169,7 @@ def get_next_item_in_path():
         sequence = cursor.fetchall()
 
         if len(sequence) == 0:
-            query_get_first_action = """SELECT sequence, questionid, unitid FROM learning_path WHERE previoussequence = \'NULL\' AND userid = \'%s\'"""%(user_id)
+            query_get_first_action = """SELECT sequence, questionid, unitid FROM learning_path WHERE previoussequence = \'NULL\' AND userid = \'%s\' AND courseid = \'%s\'"""%(user_id, course_id)
 
             # execute query to get next action
             cursor.execute(query_get_first_action)
@@ -180,15 +181,15 @@ def get_next_item_in_path():
             sequence, question_id, unit_id = sequence
 
         else:
-            query_get_sequence_action = """SELECT nextsequence FROM learning_path WHERE sequence = \'%s\' AND userid = \'%s\'"""%(sequence[0][0], user_id)
+            query_get_sequence_action = """SELECT nextsequence FROM learning_path WHERE sequence = \'%s\' AND userid = \'%s\' AND courseid= \'%s\'"""%(sequence[0][0], user_id, course_id)
 
             # execute query to get next action
             cursor.execute(query_get_sequence_action)
 
             #get the next action
-            nextsequence = cursor.fetchall()[0][0]
+            next_sequence = cursor.fetchall()[0][0]
 
-            query_get_next_action =  """SELECT sequence, questionid, unitid FROM learning_path WHERE sequence = \'%s\' AND userid = \'%s\'"""%(nextsequence, user_id)
+            query_get_next_action =  """SELECT sequence, questionid, unitid FROM learning_path WHERE sequence = \'%s\' AND userid = \'%s\' AND courseid=\'%s\'"""%(next_sequence, user_id, course_id)
 
             #execute fetch
             cursor.execute(query_get_next_action)
@@ -200,7 +201,7 @@ def get_next_item_in_path():
 
         print sequence, question_id, unit_id
         if question_id != "NULL":
-            query_get_question= """SELECT questionname, questiontext, option1Text, option2Text, option3Text, questionmultimedia FROM question WHERE questionid = \'%s\'"""%(question_id)
+            query_get_question= """SELECT questionname, questiontext, option1Text, option2Text, option3Text, questionmultimedia FROM question WHERE questionid = \'%s\' AND courseid=\'%s\'"""%(question_id, course_id)
 
             cursor.execute(query_get_question)
 
@@ -222,7 +223,7 @@ def get_next_item_in_path():
             }
 
         if unit_id != "NULL":
-            query_get_unit = """SELECT unitname, unittext, unitmultimedia FROM unit WHERE unitid=\'%s\'"""%(unit_id)
+            query_get_unit = """SELECT unitname, unittext, unitmultimedia FROM unit WHERE unitid=\'%s\' AND courseid=\'%s\'"""%(unit_id, course_id)
 
             cursor.execute(query_get_unit)
 
